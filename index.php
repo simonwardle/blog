@@ -1,15 +1,5 @@
 <?php
-$db_host = "localhost";
-$db_user = "simon";
-$db_pass = "Nal149--";
-$db_name = "cms";
-
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-if (mysqli_connect_error()) {
-    echo mysqli_connect_error();
-    exit;
-}
+require "includes/database.php";
 
 $sql = "SELECT * 
         FROM article
@@ -24,37 +14,23 @@ if ($results === false) {
 }
 
 ?>
+<!-- HTML header -->
+<?php require "includes/header.php"; ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php if (empty($articals)) : ?>
+    <p>No articles found.</p>
+<?php else : ?>
+    <ul>
+        <?php foreach ($articals as $article) : ?>
+            <li>
+                <article>
+                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></h2>
+                    <p><?= $article['content']; ?></p>
+                </article>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-</head>
-
-<body>
-    <header>
-        <h1>My Blog</h1>
-    </header>
-
-    <main>
-        <?php if (empty($articals)) : ?>
-            <p>No articles found.</p>
-        <?php else : ?>
-            <ul>
-                <?php foreach ($articals as $article) : ?>
-                    <li>
-                        <article>
-                            <h2><a href="article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></h2>
-                            <p><?= $article['content']; ?></p>
-                        </article>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </main>
-</body>
-
-</html>
+<!-- HTML footer -->
+<?php require "includes/footer.php"; ?>
