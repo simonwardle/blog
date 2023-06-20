@@ -1,21 +1,17 @@
 <?php
-require "includes/database.php";
 
-//Is the id passed in a number ?
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+require 'includes/database.php';
+require 'includes/article.php';
 
-    $sql = "SELECT * 
-        FROM article
-        WHERE id = " . $_GET['id'];
+$conn = getDB();
 
-    $results = mysqli_query($conn, $sql);
+//This is the id passed in, is it actually set to something?
+if (isset($_GET['id'])) {
 
-    if ($results === false) {
-        echo mysqli_error($conn);
-    } else {
-        $article = mysqli_fetch_assoc($results);
-    }
+    $id = $_GET['id'];
+    $article = getArticle($conn, $id);
 } else {
+
     $article = null;
 }
 ?>
@@ -25,10 +21,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <?php if ($article === null) : ?>
     <p>Article not found.</p>
 <?php else : ?>
+
     <article>
-        <h2><?= $article['title']; ?></h2>
-        <p><?= $article['content']; ?></p>
+        <h2><?= htmlspecialchars($article['title']); ?></h2>
+        <p><?= htmlspecialchars($article['content']); ?></p>
     </article>
+
+    <a href="edit-article.php?id=<?= $article['id']; ?>">Edit</a>
+    <a href="delete-article.php?id=<?= $article['id']; ?>">Delete</a>
+
 <?php endif; ?>
 
 <!-- HTML footer -->
