@@ -1,5 +1,5 @@
 <?php
-
+//This page shows one individual article and gives links to the edit and delete pages
 require 'includes/database.php';
 require 'includes/article.php';
 
