@@ -1,11 +1,8 @@
 <?php
 //This page shows one individual article and gives links to the edit and delete pages
-require 'classes/Database.php';
-require 'classes/Article.php';
+require 'includes/init.php';
 
-
-$db = new Database();
-$conn = $db->getConn();
+$conn = require 'includes/db.php';
 
 //This is the id passed in, is it actually set to something?
 if (isset($_GET['id'])) {

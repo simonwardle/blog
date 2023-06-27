@@ -1,11 +1,8 @@
 <?php
 
-require 'classes/Database.php';
-require 'classes/Article.php';
-require 'includes/url.php';
+require 'includes/init.php';
 
-$db = new Database();
-$conn = $db->getConn();
+$conn = require 'includes/db.php';
 
 //This is the id passed in, is it actually set to something?
 if (isset($_GET['id'])) {
@@ -16,7 +13,7 @@ if (isset($_GET['id'])) {
     }
 } else {
 
-    die("id not suppliced, article not found!");
+    die("id not supplied, article not found!");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -26,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $article->published_at = $_POST['published_at'];
 
     if ($article->update($conn)) {
-        redirect("/php/blog/article.php?id={$article->id}");
+        Url::redirect("/php/blog/article.php?id={$article->id}");
     }
 }
 
