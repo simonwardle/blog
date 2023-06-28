@@ -2,6 +2,8 @@
 
 require 'includes/init.php';
 
+Auth::requiresLogin();
+
 $conn = require 'includes/db.php';
 
 //This is the id passed in, is it actually set to something?

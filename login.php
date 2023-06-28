@@ -8,17 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (User::authenticate($conn, $_POST['username'], $_POST['password'])) {
 
-        session_regenerate_id(true);
-
-        $_SESSION['is_logged_in'] = true;
-
+        Auth::login();
         Url::redirect('/php/blog/');
+
     } else {
 
         $error = 'Login incorrect';
     }
 }
-
 ?>
 
 <?php require 'includes/header.php'; ?>
