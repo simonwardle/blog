@@ -15,7 +15,7 @@ $articles = Article::getAll($conn);
 
 <h1>Administration</h1>
 
-<p><a href="new-article.php">New article</a></p>
+<p><a href="/php/blog/admin/new-article.php">New article</a></p>
 
 <?php if (empty($articles)) : ?>
     <p>No articles found.</p>
@@ -29,7 +29,7 @@ $articles = Article::getAll($conn);
             <?php foreach ($articles as $article) : ?>
                 <tr>
                     <td>
-                        <a href="/php/blog/article.php?id=<?= $article['id']; ?>">
+                        <a href="/php/blog/admin/article.php?id=<?= $article['id']; ?>">
                             <?= htmlspecialchars($article['title']); ?></a>
                     </td>
                 </tr>

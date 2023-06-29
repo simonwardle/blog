@@ -1,10 +1,10 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
 
 Auth::requiresLogin();
 
-$conn = require 'includes/db.php';
+$conn = require '../includes/db.php';
 
 //This is the id passed in, is it actually set to something?
 if (isset($_GET['id'])) {
@@ -20,12 +20,12 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($article->delete($conn)) {
-        Url::redirect("/php/blog/index.php");
+        Url::redirect("/php/blog/admin/index.php");
     }
 }
 ?>
 
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>Delete article</h2>
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <p>Are you sure?</p>
 
     <button>Delete</button>
-    <a href="article.php?id=<?= $article->id; ?>">Cancel</a>
+    <a href="/php/blog/admin/article.php?id=<?= $article->id; ?>">Cancel</a>
 </form>
 
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>

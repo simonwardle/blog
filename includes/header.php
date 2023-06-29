@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
     <title>My Blog</title>
 </head>
 
@@ -15,7 +15,9 @@
 
     <nav>
         <ul>
+            <li><a href="/php/blog">Home</a></li>
             <?php if (Auth::isLoggedIn()) : ?>
+                <li><a href="/php/blog/admin">Admin</a></li>
                 <li><a href="/php/blog/logout.php">Log out</a></li>
             <?php else : ?>
                 <li><a href="/php/blog//login.php">Log in</a></li>
