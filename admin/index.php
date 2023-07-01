@@ -6,7 +6,10 @@ Auth::requiresLogin();
 
 $conn = require '../includes/db.php';
 
-$articles = Article::getAll($conn);
+//?? replaces checking if the page is set. If it is set use it otherwise use 1 
+$paginator = new Paginator($_GET['page'] ?? 1, 10, Article::getTotal($conn));
+
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 ?>
 
@@ -36,6 +39,9 @@ $articles = Article::getAll($conn);
             <?php endforeach; ?>
         </tbody>
     </table>
+    
+    <?php require "../includes/pagination.php"; ?>
+
 <?php endif; ?>
 
 <!-- HTML footer -->

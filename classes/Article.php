@@ -56,7 +56,7 @@ class Article
 
     
     /**
-     * getPage
+     * getPage Get just a page of results
      *
      * @param  object $conn Connection to database
      * @param  integer $limit Number of records to return
@@ -108,7 +108,19 @@ class Article
         }
     }
 
-
+    
+    /**
+     * getTotal Count total number of articles in the database
+     *
+     * @param  object $conn Connection to the database
+     * @return integer Count of article records
+     */
+    public static function getTotal($conn)
+    {
+       return $conn->query("SELECT COUNT(*) FROM article")->fetchColumn();
+    }
+        
+    
     /**
      * Insert a new article with its current property values
      * @param object $conn Connection to the database
