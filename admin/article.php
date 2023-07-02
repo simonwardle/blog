@@ -25,6 +25,8 @@ if (isset($_GET['id'])) {
 
     <a href="edit-article.php?id=<?= $article->id; ?>">Edit</a>
     <a href="delete-article.php?id=<?= $article->id; ?>">Delete</a>
+    <a href="edit-article-image.php?id=<?= $article->id; ?>">Edit image</a>
+    
 <?php else : ?>
 
     <p>Article not found.</p>
