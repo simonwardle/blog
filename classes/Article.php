@@ -29,6 +29,12 @@ class Article
     public $published_at;
 
     /**
+     * The path to the image
+     * @var string
+     */
+    public $image_file;
+
+    /**
      * Validation errors
      * @var array
      */
@@ -54,7 +60,7 @@ class Article
         return $results->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
+
     /**
      * getPage Get just a page of results
      *
@@ -108,7 +114,7 @@ class Article
         }
     }
 
-    
+
     /**
      * getTotal Count total number of articles in the database
      *
@@ -117,10 +123,36 @@ class Article
      */
     public static function getTotal($conn)
     {
-       return $conn->query("SELECT COUNT(*) FROM article")->fetchColumn();
+        return $conn->query("SELECT COUNT(*) FROM article")->fetchColumn();
     }
-        
+
     
+    /**
+     * getWithCategories - Get articles and their categories, if any
+     *
+     * @param  object $conn The connection to the database
+     * @param  integer $id The article id
+     * @return array The article data with categories
+     */
+    public static function getWithCategories($conn, $id)
+    {
+        $sql = "SELECT article.*, category.name AS category_name
+                FROM article
+                LEFT JOIN article_category
+                ON article.id = article_category.article_id
+                LEFT JOIN category
+                ON article_category.category_id = category.id
+                WHERE article.id = :id";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Insert a new article with its current property values
      * @param object $conn Connection to the database
@@ -230,5 +262,35 @@ class Article
             }
         }
         return empty($this->errors);
+    }
+
+
+    /**
+     * setImageFile - Update the image file property
+     *
+     * @param  object $conn Connection to the database
+     * @param  string $filename The filename of the image
+     * @return boolean True if it is successful, false otherwise
+     */
+    public function setImageFile($conn, $filename)
+    {
+        $sql = "UPDATE article
+                SET image_file = :image_file
+                WHERE id = :id";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        // if ($filename) {
+        //     $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        // } else {
+        //     $stmt->bindValue(':image_file', $filename, PDO::PARAM_NULL);
+        // }
+
+        //Use ternary operator instead
+        $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 }

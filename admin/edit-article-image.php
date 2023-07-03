@@ -18,7 +18,6 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    var_dump($_FILES);
 
     try {
 
@@ -44,49 +43,69 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
         $file_mime_type = finfo_file($fileinfo, $_FILES['file']['tmp_name']);
 
-        if (! in_array($file_mime_type, $ok_mime_types)) {
+        if (!in_array($file_mime_type, $ok_mime_types)) {
             throw new Exception("Invalid file type");
         }
 
-        
+
         // Move the uploaded file
         $pathinfo = pathinfo($_FILES['file']['name']);
-        
+
         $base = $pathinfo['filename'];
-        
+
         $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
-        
+
+        $base = mb_substr($base, 0, 200);
+
         $filename = $base . '.' . $pathinfo['extension'];
-        
+
         $destination = "../uploads/$filename";
 
         $i = 1;
 
         while (file_exists($destination)) {
-            
+
             $filename = $base . "-$i." . $pathinfo['extension'];
             $destination = "../uploads/$filename";
             $i++;
-
         }
 
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $destination))
-        {
-            echo "File uploaded successfully";
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+
+            $previous_image = $article->image_file;
+
+            if ($article->setImageFile($conn, $filename)) {
+                
+                if ($previous_image) {
+                    unlink("../uploads/$previous_image");
+                }
+
+                Url::redirect("/php/blog/admin/edit-article-image.php?id={$article->id}");
+            }
+
         } else {
             throw new Exception("Unable to move uploaded file");
         }
- 
     } catch (Exception $e) {
-        echo $e->getMessage();
+        $error = $e->getMessage();
     }
-    
 }
 
 ?>
 <?php require '../includes/header.php'; ?>
 
 <h2>Edit article image</h2>
+
+<?php if ($article->image_file) : ?>
+    <img src="/php/blog/uploads/<?= $article->image_file; ?>">
+    <a href="delete-article-image.php?id=<?= $article->id; ?>">Delete</a>
+<?php endif; ?>
+
+<?php if (isset($error)) : ?>
+   <p>
+       <?= $error; ?>
+   </p>
+<?php endif; ?>
 
 <form method="post" enctype="multipart/form-data">
     <div>
