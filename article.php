@@ -7,6 +7,7 @@ $conn = require 'includes/db.php';
 //This is the id passed in, is it actually set to something?
 if (isset($_GET['id'])) {
     $article = Article::getWithCategories($conn, $_GET['id']);
+    var_dump($article);
 } else {
     $article = null;
 }
