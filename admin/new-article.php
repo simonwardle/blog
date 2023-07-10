@@ -7,6 +7,8 @@ Auth::requiresLogin();
 $conn = require '../includes/db.php';
 
 $article = new Article();
+
+//This is a new article so just initialize category ids to a blank array.
 $category_ids = [];
 $categories = Category::getAll($conn);
 

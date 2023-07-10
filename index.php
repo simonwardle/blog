@@ -8,7 +8,6 @@ $conn = require 'includes/db.php';
 $paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
-
 ?>
 
 <!-- HTML header -->
@@ -22,6 +21,13 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
             <li>
                 <article>
                     <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+                    <?php if ($article['category_names']) : ?>
+                        <p>Categories:
+                            <?php foreach ($article['category_names'] as $category_name) : ?>
+                                <?= htmlspecialchars($category_name); ?>
+                            <?php endforeach; ?>
+                        </p>
+                    <?php endif; ?>
                     <p><?= htmlspecialchars($article['content']); ?></p>
                 </article>
             </li>
@@ -29,7 +35,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
     </ul>
 
     <?php require 'includes/pagination.php'; ?>
-    
+
 <?php endif; ?>
 
 <!-- HTML footer -->
