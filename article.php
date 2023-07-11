@@ -6,8 +6,7 @@ $conn = require 'includes/db.php';
 
 //This is the id passed in, is it actually set to something?
 if (isset($_GET['id'])) {
-    $article = Article::getWithCategories($conn, $_GET['id']);
-    var_dump($article);
+    $article = Article::getWithCategories($conn, $_GET['id'], true);
 } else {
     $article = null;
 }
@@ -20,6 +19,13 @@ if (isset($_GET['id'])) {
 
     <article>
         <h2><?= htmlspecialchars($article[0]['title']); ?></h2>
+
+        <time datetime="<?= $article[0]['published_at'] ?>">
+            <?php
+            $datetime = new DateTime($article[0]['published_at']);
+            echo $datetime->format("j F, Y");
+            ?>
+        </time>
 
         <?php if ($article[0]['category_name']) : ?>
             <p>

@@ -5,6 +5,9 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
         crossorigin="anonymous">
     </script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js">
+    </script>
     <script src="/php/blog/js/script.js"></script>
 </body>
 

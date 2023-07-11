@@ -5,9 +5,9 @@ require 'includes/init.php';
 $conn = require 'includes/db.php';
 
 //?? replaces checking if the page is set. If it is set use it otherwise use 1 
-$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn));
+$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn, true));
 
-$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true);
 ?>
 
 <!-- HTML header -->
@@ -21,6 +21,14 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
             <li>
                 <article>
                     <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+
+                    <time datetime="<?= $article['published_at'] ?>">
+                        <?php
+                        $datetime = new DateTime($article['published_at']);
+                        echo $datetime->format("j F, Y");
+                        ?>
+                    </time>
+
                     <?php if ($article['category_names']) : ?>
                         <p>Categories:
                             <?php foreach ($article['category_names'] as $category_name) : ?>
