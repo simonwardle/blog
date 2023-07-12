@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         Auth::login();
         Url::redirect('/php/blog/');
-
     } else {
 
         $error = 'Login incorrect';
@@ -28,18 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <form method="post">
 
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" id="username" class="form-control">
 
     </div>
 
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" class="form-control">
     </div>
 
-    <button>Log in</button>
+    <button class="btn btn-primary">Log in</button>
 
 </form>
 

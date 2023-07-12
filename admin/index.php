@@ -23,9 +23,10 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 <?php if (empty($articles)) : ?>
     <p>No articles found.</p>
 <?php else : ?>
-    <table>
+    <table class="table">
         <thead>
             <th>Title</th>
+            <th>Published</th>
         </thead>
 
         <tbody>
@@ -35,11 +36,22 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
                         <a href="/php/blog/admin/article.php?id=<?= $article['id']; ?>">
                             <?= htmlspecialchars($article['title']); ?></a>
                     </td>
+                    <td>
+                        <?php if ($article['published_at']) : ?>
+                            <time>
+                                <?= $article['published_at']; ?>
+                            </time>
+                        <?php else : ?>
+                            Unpublished
+                            <button class="btn btn-primary btn-sm publish" data-id="<?= $article['id'] ?>" >Publish</button>
+                        <?php endif; ?>
+                    </td>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    
+
     <?php require "../includes/pagination.php"; ?>
 
 <?php endif; ?>

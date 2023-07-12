@@ -3,24 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>My Blog</title>
 </head>
 
 <body>
+    <div class="container">
     <header>
         <h1>My Blog</h1>
     </header>
 
     <nav>
-        <ul>
-            <li><a href="/php/blog">Home</a></li>
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="/php/blog">Home</a></li>
             <?php if (Auth::isLoggedIn()) : ?>
-                <li><a href="/php/blog/admin">Admin</a></li>
-                <li><a href="/php/blog/logout.php">Log out</a></li>
+                <li class="nav-item"><a class="nav-link" href="/php/blog/admin">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="/php/blog/logout.php">Log out</a></li>
             <?php else : ?>
-                <li><a href="/php/blog//login.php">Log in</a></li>
+                <li class="nav-item"><a class="nav-link" href="/php/blog//login.php">Log in</a></li>
             <?php endif; ?>
         </ul>
     </nav>

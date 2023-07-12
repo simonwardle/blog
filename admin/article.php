@@ -21,6 +21,14 @@ if (isset($_GET['id'])) {
     <article>
         <h2><?= htmlspecialchars($article[0]['title']); ?></h2>
 
+        <?php if ($article[0]['published_at']) : ?>
+            <time>
+                <?= $article[0]['published_at']; ?>
+            </time>
+        <?php else : ?>
+            Unpublished
+        <?php endif; ?>
+
         <?php if ($article[0]['category_name']) : ?>
             <p>
                 Categories:
@@ -31,7 +39,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
 
         <?php if ($article[0]['image_file']) : ?>
-            <img src="/php/blog/uploads/<?= $article[0]['image_file']; ?>">
+            <img width="50%" height="150" class="img-fluid" src="/php/blog/uploads/<?= $article[0]['image_file']; ?>">
         <?php endif; ?>
 
 
@@ -42,7 +50,7 @@ if (isset($_GET['id'])) {
     <a href="edit-article.php?id=<?= $article[0]['id']; ?>">Edit</a>
     <a class="delete" href="delete-article.php?id=<?= $article[0]['id']; ?>">Delete</a>
     <a href="edit-article-image.php?id=<?= $article[0]['id']; ?>">Edit image</a>
-    
+
 <?php else : ?>
 
     <p>Article not found.</p>

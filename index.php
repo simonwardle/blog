@@ -25,7 +25,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true)
                     <time datetime="<?= $article['published_at'] ?>">
                         <?php
                         $datetime = new DateTime($article['published_at']);
-                        echo $datetime->format("j F, Y");
+                        echo $datetime->format("jS F, Y");
                         ?>
                     </time>
 

@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
         <time datetime="<?= $article[0]['published_at'] ?>">
             <?php
             $datetime = new DateTime($article[0]['published_at']);
-            echo $datetime->format("j F, Y");
+            echo $datetime->format("jS F, Y");
             ?>
         </time>
 
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
 
         <?php if ($article[0]['image_file']) : ?>
-            <img src="/php/blog/uploads/<?= $article[0]['image_file']; ?>">
+            <img width="50%" height="150" class="img-fluid" src="/php/blog/uploads/<?= $article[0]['image_file']; ?>">
         <?php endif; ?>
 
 
