@@ -1,9 +1,9 @@
-$("a.delete").on("click", function(e) {
-    
+$("a.delete").on("click", function (e) {
+
     e.preventDefault();
 
     if (confirm("Are you sure?")) {
-        var frm= $("<form>");
+        var frm = $("<form>");
         frm.attr('method', 'post');
         frm.attr('action', $(this).attr('href'));
         frm.appendTo('body');
@@ -12,8 +12,8 @@ $("a.delete").on("click", function(e) {
 
 });
 
-$.validator.addMethod("dateTime", function(value, element){
-    return (value == "") || ! isNaN(Date.parse(value));
+$.validator.addMethod("dateTime", function (value, element) {
+    return (value == "") || !isNaN(Date.parse(value));
 }, "Must be a valid date and time");
 
 $("#formArticle").validate(
@@ -32,18 +32,37 @@ $("#formArticle").validate(
     }
 )
 
-$("button.publish").on("click", function(e) {
-    
+$("button.publish").on("click", function (e) {
+
     var id = $(this).data('id');
     var button = $(this);
-    
+
     $.ajax({
         url: '/php/blog/admin/publish-article.php',
         type: 'POST',
-        data: {id: id}
+        data: { id: id }
     })
-    .done(function(data){
-        button.parent().html(data);
-    });
-    
+        .done(function (data) {
+            button.parent().html(data);
+        });
+
+});
+
+$('#published_at').datetimepicker({
+    format: 'Y-m-d H:i:s'
+});
+
+$("#formContact").validate({
+    rules: {
+		email: {
+			required: true,
+			email: true
+		},
+		subject: {
+			required: true
+		},
+		message: {
+			required: true
+		}
+    }
 });
