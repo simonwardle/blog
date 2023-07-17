@@ -32,23 +32,26 @@ $("#formArticle").validate(
     }
 )
 
-$("button.publish").on("click", function (e) {
+$("button.publish").on("click", function(e) {
 
     var id = $(this).data('id');
     var button = $(this);
 
     $.ajax({
-        url: '/php/blog/admin/publish-article.php',
+        url: '/admin/publish-article.php',
         type: 'POST',
-        data: { id: id }
+        data: {id: id}
     })
-    .done(function (data) {
-        button.parent().html(data);
-    });
-    // .fail(function (data) {
-    //     alert("An error occurred!");
-    // });
+    .done(function(data) {
 
+        button.parent().html(data);
+
+    })
+    .fail(function(data) {
+
+        alert("An error occurred");
+
+    });
 });
 
 $('#published_at').datetimepicker({
