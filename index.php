@@ -32,8 +32,10 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true)
 
                     <?php if ($article['category_names']) : ?>
                         <p>Categories:
-                            <?php foreach ($article['category_names'] as $category_name) : ?>
-                                <?= htmlspecialchars($category_name); ?>
+                            <?php foreach ($article['category_names'] as $name) : ?>
+                                <?php if (!empty($name)) : ?>
+                                    <?= htmlspecialchars($name); ?>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </p>
                     <?php endif; ?>

@@ -42,9 +42,12 @@ $("button.publish").on("click", function (e) {
         type: 'POST',
         data: { id: id }
     })
-        .done(function (data) {
-            button.parent().html(data);
-        });
+    .done(function (data) {
+        button.parent().html(data);
+    });
+    // .fail(function (data) {
+    //     alert("An error occurred!");
+    // });
 
 });
 
@@ -54,15 +57,15 @@ $('#published_at').datetimepicker({
 
 $("#formContact").validate({
     rules: {
-		email: {
-			required: true,
-			email: true
-		},
-		subject: {
-			required: true
-		},
-		message: {
-			required: true
-		}
+        email: {
+            required: true,
+            email: true
+        },
+        subject: {
+            required: true
+        },
+        message: {
+            required: true
+        }
     }
 });

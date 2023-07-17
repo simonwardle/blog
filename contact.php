@@ -40,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         try {
             $mail->isSMTP();
-            $mail->Host = 'email-smtp.eu-north-1.amazonaws.com';
+            $mail->Host = SMTP_HOST;
             $mail->SMTPAuth = true;
-            $mail->Username = 'AKIA3BHRRZBOVANZBGPW';
-            $mail->Password = 'BO+2+w6AjLse4TP5buttr9Y+OjZQrFfs/FH9AqMY7KJc';
+            $mail->Username = SMTP_USER;
+            $mail->Password = SMTP_PASS;
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
